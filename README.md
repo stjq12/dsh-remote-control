@@ -2,13 +2,13 @@
 
 [English](README.en.md) · [安装](INSTALL.md) · [技术说明](TECHNICAL.md)
 
-![本机页和远程页截图](assets/readme/hero.zh-CN.png)
+![原生 DSH 界面操作另一台电脑](assets/readme/hero.zh-CN.png)
 
-一个 DeepSeek Harness 插件，用于在两台电脑之间建立远程控制，让一台电脑操作另一台电脑上运行的 DeepSeek Harness 实例。
+一个 DeepSeek Harness 插件：在当前窗口中通过原生 DSH 界面操作另一台电脑上的 DSH，不套远程桌面，也不做简化面板。原生控件和操作方式保持完整。
 
 ## 功能
 
-- **两台电脑，一个窗口。** DSH 放在台式机或服务器，人在另一台电脑上继续使用。
+- **原生 DSH，不是远程桌面。** 对端还是同一套界面、控件和操作方式。
 - **本机页 / 远程页。** 本机页开放带凭据的 `/bridge`，远程页把当前窗口的流量接到对端。
 - **审批与下载。** 有远程控制端时，审批和 AI 提问由远程端回答；下载可以限定到指定目录。
 

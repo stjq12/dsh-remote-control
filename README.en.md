@@ -2,13 +2,13 @@
 
 [简体中文](README.md) · [Install](INSTALL.md) · [Technical](TECHNICAL.md)
 
-![Local and Remote tabs](assets/readme/hero.en.png)
+![Native DSH interface controlling another computer](assets/readme/hero.en.png)
 
-A DeepSeek Harness plugin that establishes remote control between two computers, letting one computer operate a DeepSeek Harness instance running on another computer.
+A DeepSeek Harness plugin that opens another computer's DSH in this window through the native DSH interface — no remote desktop, no simplified replacement panel. The native controls and workflow stay intact.
 
 ## What it does
 
-- **One window, two hosts.** Keep DSH on a desktop or server and use it from another computer.
+- **Native DSH, not a remote desktop.** Keep the same interface, controls and workflow on the other Host.
 - **Local / Remote.** Local exposes an authenticated `/bridge`; Remote routes this window's traffic to it.
 - **Approvals and downloads.** While a controller is attached, approvals and AI questions are answered remotely. Downloads can be limited to a chosen directory.
 
