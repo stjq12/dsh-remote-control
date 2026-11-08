@@ -31,8 +31,6 @@
     "lib/state.js",
     "cordis.patch.yml",
     "icon.svg",
-    "README.md",
-    "README.zh-CN.md",
     "INSTALL.md",
     "TECHNICAL.md",
     "lib/auth.js",
@@ -41,7 +39,9 @@
     "lib/paths.js",
     "lib/file-policy.js",
     "assets",
-    "LICENSE"
+    "LICENSE",
+    "README.md",
+    "README.en.md"
   ],
   "dsh": {
     "displayName": "Remote Control",

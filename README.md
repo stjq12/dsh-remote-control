@@ -1,71 +1,71 @@
-# Remote Control for DeepSeek Harness
+# DeepSeek Harness 远程控制
 
-[简体中文](README.zh-CN.md) · [Install](INSTALL.md) · [Technical](TECHNICAL.md)
+[English](README.en.md) · [安装](INSTALL.md) · [技术说明](TECHNICAL.md)
 
-![Local and Remote tabs](assets/readme/hero.en.png)
+![本机页和远程页截图](assets/readme/hero.zh-CN.png)
 
-A DeepSeek Harness plugin that establishes remote control between two computers, letting one computer operate a DeepSeek Harness instance running on another computer.
+一个 DeepSeek Harness 插件，用于在两台电脑之间建立远程控制，让一台电脑操作另一台电脑上运行的 DeepSeek Harness 实例。
 
-## What it does
+## 功能
 
-- **One window, two hosts.** Keep DSH on a desktop or server and use it from another computer.
-- **Local / Remote.** Local exposes an authenticated `/bridge`; Remote routes this window's traffic to it.
-- **Approvals and downloads.** While a controller is attached, approvals and AI questions are answered remotely. Downloads can be limited to a chosen directory.
+- **两台电脑，一个窗口。** DSH 放在台式机或服务器，人在另一台电脑上继续使用。
+- **本机页 / 远程页。** 本机页开放带凭据的 `/bridge`，远程页把当前窗口的流量接到对端。
+- **审批与下载。** 有远程控制端时，审批和 AI 提问由远程端回答；下载可以限定到指定目录。
 
-## Install
+## 安装
 
-Install the same plugin on both machines.
+两台电脑安装同一个插件。
 
-From GitHub:
+从 GitHub 安装：
 
 ```text
 github:stjq12/dsh-remote-control
 ```
 
-From npm (when published):
+从 npm 安装（发布后）：
 
 ```text
 @stjq12/dsh-remote-control
 ```
 
-In DSH, open **Plugins → Add plugin** and enter one of the specs. Until npm is published, use the GitHub spec or this checkout's absolute path. Host-side code loads only when DSH starts; fully quit and restart DSH after replacing it.
+在 **DSH → 插件 → 添加插件** 输入其中一种。npm 发布前可用 GitHub 地址或本地绝对路径。Host 侧代码只在 DSH 启动时加载；替换后需完全退出并重新启动 DSH。
 
-## Quick start
+## 快速开始
 
-1. **Controlled machine — Local.** Choose an IP this machine already has and a port at 1024 or higher. Turn the switch on, then copy the token.
-2. **Controller — Remote.** Enter the address and token shown on the other machine, then turn the switch on.
-3. The page reloads once. Turn the switch off to return to the local Host.
+1. **被控制端 — 本机页。** 选择本机已有的 IP 和 1024 以上端口，打开开关，复制 token。
+2. **控制端 — 远程页。** 填写对端显示的地址和 token，打开开关。
+3. 页面会刷新一次。关闭开关即可回到本机 Host。
 
-**Save** stores the form only; the switch applies it. Selecting a preset fills the form but does not connect.
+**保存**只记录表单，开关才真正生效；选择预设只填表单，不会自动连接。
 
-## Security
+## 安全
 
-Remote Control is full-control access, not a read-only viewer.
+这是完整控制权限的远程控制，不是只读查看器。
 
-- The bridge uses plaintext `ws://` and a bearer token. Use it only over Tailscale, SSH, WireGuard, or another encrypted tunnel.
-- The token is equivalent to full control of the controlled Harness. Do not share or screenshot it; rotate it immediately if it may have leaked.
-- Prefer a bounded lifetime (5 minutes to 24 hours) and close the switch when done. Permanent still ends when DSH exits.
-- The download policy controls downloads only. Previews may still read files through RPC; grant the narrowest directory that contains what you need.
-- Do not give the token to an untrusted controller. Test in a controlled environment first.
+- bridge 使用明文 `ws://` 和 bearer token。只应通过 Tailscale、SSH、WireGuard 等加密隧道使用。
+- token 等价于被控端 Harness 的完整控制权限。不要分享或截图；怀疑泄露时立即轮换。
+- 优先使用 5 分钟到 24 小时的有限时长，用完关闭开关。永久选项也会在 DSH 退出时结束。
+- 下载权限只控制下载；预览仍可能通过 RPC 读取文件。只授权包含所需文件的最窄目录。
+- 不要把 token 交给不受信任的控制端。请先在受控环境测试。
 
-See [TECHNICAL.md](./TECHNICAL.md) for the protocol, threat model and diagnostics.
+协议、威胁模型和诊断说明见 [TECHNICAL.md](./TECHNICAL.md)。
 
-## Limitations
+## 限制
 
-- `ws://` only; no WSS/TLS.
-- Remote file upload is not supported.
-- Byte RPC results are capped at 64 MB; normal downloads use 256 KB chunks.
+- 只支持 `ws://`，不支持 WSS/TLS。
+- 不支持远程上传文件。
+- 字节 RPC 结果有 64 MB 上限；普通文件下载走 256 KB 分块流。
 
-## Documentation
+## 文档
 
 - [INSTALL.md](./INSTALL.md)
 - [TECHNICAL.md](./TECHNICAL.md)
 
-## License
+## 许可证
 
 [MIT](LICENSE) © stjq12
 
-## Repository
+## 仓库
 
-- GitHub: https://github.com/stjq12/dsh-remote-control
-- npm: `@stjq12/dsh-remote-control`
+- GitHub：https://github.com/stjq12/dsh-remote-control
+- npm：`@stjq12/dsh-remote-control`
