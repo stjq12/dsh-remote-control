@@ -57,7 +57,7 @@ See [TECHNICAL.md](./TECHNICAL.md) for the protocol, threat model and diagnostic
 
 ## Acknowledgements
 
-The idea of exposing a Host through an authenticated WebSocket and adapting it for another client was informed by [Clarklevis1995/dsh-plugin-mobile-gateway](https://github.com/Clarklevis1995/dsh-plugin-mobile-gateway). That project calls the pattern a gateway; this plugin implements a separate, smaller bridge with a different protocol and scope. It is not a fork.
+This project follows the same remote-access approach: expose a Host through an authenticated WebSocket and adapt it for another client. The approach was informed by [Clarklevis1995/dsh-plugin-mobile-gateway](https://github.com/Clarklevis1995/dsh-plugin-mobile-gateway). Thanks to the author for sharing it.
 
 ## License
 

@@ -57,7 +57,7 @@ github:stjq12/dsh-remote-control
 
 ## 致谢
 
-通过带认证的 WebSocket 把 Host 暴露给另一客户端、再做适配的思路，参考了 [Clarklevis1995/dsh-plugin-mobile-gateway](https://github.com/Clarklevis1995/dsh-plugin-mobile-gateway)。该项目使用的说法是 gateway；本插件是一个独立实现，使用不同的协议和范围，bridge 是更小的双机版本，不是它的分支。
+本项目采用同样的远程访问思路：通过带认证的 WebSocket 把 Host 暴露给另一客户端，再做适配。该思路参考了 [Clarklevis1995/dsh-plugin-mobile-gateway](https://github.com/Clarklevis1995/dsh-plugin-mobile-gateway)，感谢作者分享。
 
 ## 许可证
 
