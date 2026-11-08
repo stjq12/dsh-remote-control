@@ -55,6 +55,10 @@ See [TECHNICAL.md](./TECHNICAL.md) for the protocol, threat model and diagnostic
 - [INSTALL.md](./INSTALL.md)
 - [TECHNICAL.md](./TECHNICAL.md)
 
+## Acknowledgements
+
+The idea of exposing a Host through an authenticated WebSocket and adapting it for another client was informed by [Clarklevis1995/dsh-plugin-mobile-gateway](https://github.com/Clarklevis1995/dsh-plugin-mobile-gateway). That project calls the pattern a gateway; this plugin implements a separate, smaller bridge with a different protocol and scope. It is not a fork.
+
 ## License
 
 [MIT](LICENSE) © stjq12
