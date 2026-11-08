@@ -38,6 +38,7 @@
 2. `xiaohongshu-02-features.png` — 功能说明
 3. `xiaohongshu-03-ui.png` — 实际界面截图
 4. `xiaohongshu-04-usage.png` — 使用步骤
+4-1. `xiaohongshu-04-1-install.png` — 插件页安装截图
 5. `xiaohongshu-05-security.png` — 使用注意事项
 
 ## 置顶评论
