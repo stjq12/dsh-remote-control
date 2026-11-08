@@ -4,7 +4,7 @@
 
 ![Native DSH interface controlling another computer](assets/readme/hero.en.png)
 
-A DeepSeek Harness plugin that opens another computer's DSH in this window through the native DSH interface — no remote desktop, no simplified replacement panel. The native controls and workflow stay intact.
+A DeepSeek Harness plugin that opens another computer's DSH in this window through the native DSH interface — no remote desktop, no simplified replacement panel. The native interface, controls and features stay intact.
 
 ## What it does
 

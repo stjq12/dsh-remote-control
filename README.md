@@ -4,7 +4,7 @@
 
 ![原生 DSH 界面操作另一台电脑](assets/readme/hero.zh-CN.png)
 
-一个 DeepSeek Harness 插件：在当前窗口中通过原生 DSH 界面操作另一台电脑上的 DSH，不套远程桌面，也不做简化面板。原生控件和操作方式保持完整。
+一个 DeepSeek Harness 插件：在当前窗口中通过原生 DSH 界面操作另一台电脑上的 DSH，不套远程桌面，也不做简化面板。原生界面、控件和功能保持完整。
 
 ## 功能
 
