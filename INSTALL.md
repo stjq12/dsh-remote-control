@@ -6,11 +6,11 @@
 
 ```bash
 mkdir -p ~/dsh-plugins
-tar xzf dsh-remote-control-p0-fixed-20261108.tar.gz -C ~/dsh-plugins
+tar xzf dsh-remote-control-0.2.4-20261108.tar.gz -C ~/dsh-plugins
 ls ~/dsh-plugins/dsh-remote-control    # index.js client.js bridge.js ... 都在这里
 ```
 
-路径里有空格也可以，`package.json` 里的名字是 `@local/dsh-remote-control`。
+路径里有空格也可以，`package.json` 里的名字是 `@stjq12/dsh-remote-control`。
 
 ## 2. 让当前 profile 认识它
 
@@ -20,7 +20,7 @@ DSH 的 profile 在 `~/.dsh/profiles/<profile>/`，默认 profile 名是 `web`�
 ```bash
 PROFILE=web
 SRC="$HOME/dsh-plugins/dsh-remote-control"
-DST="$HOME/.dsh/profiles/$PROFILE/node_modules/@local/dsh-remote-control"
+DST="$HOME/.dsh/profiles/$PROFILE/node_modules/@stjq12/dsh-remote-control"
 mkdir -p "$(dirname "$DST")"
 ln -sfn "$SRC" "$DST"
 ```
@@ -33,10 +33,10 @@ import json, pathlib
 p = pathlib.Path.home() / ".dsh/profiles/web/package.json"
 d = json.loads(p.read_text())
 bundles = d.setdefault("dsh", {}).setdefault("profile", {}).setdefault("bundles", [])
-if "@local/dsh-remote-control" not in bundles:
-    bundles.append("@local/dsh-remote-control")
+if "@stjq12/dsh-remote-control" not in bundles:
+    bundles.append("@stjq12/dsh-remote-control")
 deps = d.setdefault("dependencies", {})
-deps.setdefault("@local/dsh-remote-control", "0.2.4")
+deps.setdefault("@stjq12/dsh-remote-control", "0.2.4")
 p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n")
 print("bundles:", bundles)
 PY
@@ -71,13 +71,13 @@ dsh web
 ## 5. 卸载
 
 ```bash
-rm ~/.dsh/profiles/web/node_modules/@local/dsh-remote-control
+rm ~/.dsh/profiles/web/node_modules/@stjq12/dsh-remote-control
 python3 - <<'PY'
 import json, pathlib
 p = pathlib.Path.home() / ".dsh/profiles/web/package.json"
 d = json.loads(p.read_text())
-d.get("dsh", {}).get("profile", {}).get("bundles", []).remove("@local/dsh-remote-control")
-d.get("dependencies", {}).pop("@local/dsh-remote-control", None)
+d.get("dsh", {}).get("profile", {}).get("bundles", []).remove("@stjq12/dsh-remote-control")
+d.get("dependencies", {}).pop("@stjq12/dsh-remote-control", None)
 p.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n")
 PY
 ```

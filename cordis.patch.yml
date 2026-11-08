@@ -1,6 +1,6 @@
 - insert:
     - id: remote-control-host
-      name: '@local/dsh-remote-control'
+      name: '@stjq12/dsh-remote-control'
       config:
         clientMarker: /remote-control
         requestTimeoutMs: 30000

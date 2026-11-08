@@ -1,7 +1,6 @@
 {
-  "name": "@local/dsh-remote-control",
+  "name": "@stjq12/dsh-remote-control",
   "version": "0.2.4",
-  "private": true,
   "description": "Two-way remote control for DeepSeek Harness: expose one machine over an authenticated bridge, or drive another machine's DSH from this window.",
   "type": "module",
   "main": "index.js",
@@ -55,5 +54,14 @@
   },
   "dependencies": {
     "@deepseek-ai/schemastery": "^3.18.1"
+  },
+  "author": "stjq12",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stjq12/dsh-remote-control.git"
+  },
+  "homepage": "https://github.com/stjq12/dsh-remote-control#readme",
+  "bugs": {
+    "url": "https://github.com/stjq12/dsh-remote-control/issues"
   }
 }

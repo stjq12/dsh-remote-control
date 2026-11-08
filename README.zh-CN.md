@@ -74,4 +74,4 @@ A 侧插件 ── 明文 WebSocket（/bridge，bearer token）──> B 侧插�
 
 ## 仓库
 
-GitHub 地址将在公开发布后补充。本地 profile 目前使用 `@local/dsh-remote-control` 别名；公开发布时建议使用 `dsh-remote-control`（或 `@scope/dsh-remote-control`）。
+仓库将发布为 `stjq12/dsh-remote-control`，npm 包名为 `@stjq12/dsh-remote-control`；GitHub 地址在发布后补充。

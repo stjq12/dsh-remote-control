@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: '@local/dsh-remote-control',
+  id: '@stjq12/dsh-remote-control',
   factory(require) {
     const React = require('react')
     const h = React.createElement
@@ -349,10 +349,10 @@ window.__ModuleLoader__.load({
      * this bundle in the same page cannot stack duplicate rules.
      */
     function injectStyle() {
-      const tagId = '@local/dsh-remote-control/dialog.css'
+      const tagId = '@stjq12/dsh-remote-control/dialog.css'
       if (typeof document === 'undefined' || document.querySelector(`style[data-plugin-css="${tagId}"]`) !== null) return
       const tag = document.createElement('style')
-      tag.dataset.plugin = '@local/dsh-remote-control'
+      tag.dataset.plugin = '@stjq12/dsh-remote-control'
       tag.dataset.pluginCss = tagId
       tag.textContent = styles
       document.head.appendChild(tag)

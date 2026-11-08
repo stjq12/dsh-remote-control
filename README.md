@@ -74,4 +74,4 @@ See [INSTALL.md](./INSTALL.md). Install the same plugin on both machines. Host-s
 
 ## Repository
 
-The GitHub URL will be added after the public release. The local profile currently uses the `@local/dsh-remote-control` alias; a public release should use `dsh-remote-control` (or `@scope/dsh-remote-control`).
+The repository will be published as `stjq12/dsh-remote-control`; the npm package name is `@stjq12/dsh-remote-control`. The GitHub URL will be added after publication.
