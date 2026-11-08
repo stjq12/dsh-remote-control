@@ -1,0 +1,59 @@
+{
+  "name": "@local/dsh-remote-control",
+  "version": "0.2.4",
+  "private": true,
+  "description": "Two-way remote control for DeepSeek Harness: expose one machine over an authenticated bridge, or drive another machine's DSH from this window.",
+  "type": "module",
+  "main": "index.js",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "remote-control",
+    "remote-desktop"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.4 <0.3.0",
+    "node": ">=22"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./icon": "./icon.svg",
+    "./lib/bridge-host": "./lib/bridge-host.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "bridge.js",
+    "lib/bridge-host.js",
+    "lib/state.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "README.md",
+    "README.zh-CN.md",
+    "INSTALL.md",
+    "TECHNICAL.md",
+    "lib/auth.js",
+    "lib/ip.js",
+    "lib/frames.js",
+    "lib/paths.js",
+    "lib/file-policy.js"
+  ],
+  "dsh": {
+    "displayName": "Remote Control",
+    "category": "tools/remote",
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": "^3.18.1"
+  }
+}

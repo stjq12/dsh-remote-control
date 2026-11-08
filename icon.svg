@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Remote control">
+  <defs>
+    <linearGradient id="rc-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f7fd6"/>
+      <stop offset="1" stop-color="#174a86"/>
+    </linearGradient>
+  </defs>
+  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#rc-bg)"/>
+  <!-- the remote screen -->
+  <rect x="13" y="17" width="30" height="21" rx="3" fill="none" stroke="#ffffff" stroke-width="2.6"/>
+  <path d="M22 45h12" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M28 38v7" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+  <!-- the control link to this machine -->
+  <circle cx="48" cy="39" r="3" fill="#ffffff"/>
+  <circle cx="56" cy="29" r="2.2" fill="#ffffff" opacity="0.85"/>
+  <path d="M43.5 40.5a7.5 7.5 0 0 1 4.6-6.6" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.75"/>
+  <path d="M43 33.6a14 14 0 0 1 8.6-4.2" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+</svg>
