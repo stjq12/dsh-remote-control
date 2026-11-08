@@ -368,7 +368,7 @@ window.__ModuleLoader__.load({
     const NOTICE_KEY = 'dsh-remote-control/notice'
 
     /** Repository URL shown in the help page; filled in after the public release. */
-    const GITHUB_URL = ''
+    const GITHUB_URL = 'https://github.com/stjq12/dsh-remote-control'
 
     async function readState(signal) {
       const response = await fetch(STATE, { credentials: 'same-origin', cache: 'no-store', headers: MARKER, signal })

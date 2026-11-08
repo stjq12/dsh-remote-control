@@ -39,7 +39,9 @@
     "lib/ip.js",
     "lib/frames.js",
     "lib/paths.js",
-    "lib/file-policy.js"
+    "lib/file-policy.js",
+    "assets",
+    "LICENSE"
   ],
   "dsh": {
     "displayName": "Remote Control",
@@ -63,5 +65,6 @@
   "homepage": "https://github.com/stjq12/dsh-remote-control#readme",
   "bugs": {
     "url": "https://github.com/stjq12/dsh-remote-control/issues"
-  }
+  },
+  "license": "MIT"
 }
