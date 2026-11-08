@@ -10,14 +10,6 @@
 github:stjq12/dsh-remote-control
 ```
 
-## 从 npm 安装
-
-npm 包发布后，在同一个位置输入：
-
-```text
-@stjq12/dsh-remote-control
-```
-
 ## 本地开发
 
 可以直接填本机绝对路径，例如：

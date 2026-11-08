@@ -4,4 +4,3 @@ node_modules
 *.tar.gz
 remote-control.json
 remote-control-trace.log
-.npm-cache*

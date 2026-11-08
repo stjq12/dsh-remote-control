@@ -22,13 +22,7 @@
 github:stjq12/dsh-remote-control
 ```
 
-从 npm 安装（发布后）：
-
-```text
-@stjq12/dsh-remote-control
-```
-
-在 **DSH → 插件 → 添加插件** 输入其中一种。npm 发布前可用 GitHub 地址或本地绝对路径。Host 侧代码只在 DSH 启动时加载；替换后需完全退出并重新启动 DSH。
+在 **DSH → 插件 → 添加插件** 输入 GitHub 地址，或使用本地绝对路径。Host 侧代码只在 DSH 启动时加载；替换后需完全退出并重新启动 DSH。
 
 ## 快速开始
 
@@ -68,4 +62,3 @@ github:stjq12/dsh-remote-control
 ## 仓库
 
 - GitHub：https://github.com/stjq12/dsh-remote-control
-- npm：`@stjq12/dsh-remote-control`

@@ -22,13 +22,7 @@ From GitHub:
 github:stjq12/dsh-remote-control
 ```
 
-From npm (when published):
-
-```text
-@stjq12/dsh-remote-control
-```
-
-In DSH, open **Plugins → Add plugin** and enter one of the specs. Until npm is published, use the GitHub spec or this checkout's absolute path. Host-side code loads only when DSH starts; fully quit and restart DSH after replacing it.
+In DSH, open **Plugins → Add plugin** and enter the GitHub spec, or use this checkout's absolute path. Host-side code loads only when DSH starts; fully quit and restart DSH after replacing it.
 
 ## Quick start
 
@@ -68,4 +62,3 @@ See [TECHNICAL.md](./TECHNICAL.md) for the protocol, threat model and diagnostic
 ## Repository
 
 - GitHub: https://github.com/stjq12/dsh-remote-control
-- npm: `@stjq12/dsh-remote-control`
