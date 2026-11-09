@@ -269,8 +269,6 @@ window.__ModuleLoader__.load({
 .rrcTool:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(127,127,127,.12))}
 .rrcTool svg{width:15px;height:15px}
 .rrcTool:disabled,.rrcTool[aria-disabled="true"]{opacity:.35;cursor:not-allowed}
-.rrcPanelPage{width:100%;height:100%;min-height:0;overflow:auto;padding:24px;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:center}
-.rrcDialog.rrcDialogEmbedded{width:min(760px,100%);height:min(760px,calc(100vh - 80px));box-shadow:none;margin:0 auto}
 .rrcOverlay{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--dsw-alias-bg-mask-1,rgba(0,0,0,.32))}
 .rrcDialog{box-sizing:border-box;width:min(640px,100%);height:min(760px,calc(100vh - 32px));overflow:hidden;border-radius:var(--dsw-radius-panel,16px);border:1px solid var(--dsw-alias-border-l3,rgba(127,127,127,.24));background:var(--dsw-alias-bg-layer-2,Canvas);color:var(--dsw-alias-label-primary,CanvasText);box-shadow:var(--dsw-elevation-prominent,0 20px 60px rgba(0,0,0,.22));padding:20px;display:flex;flex-direction:column;gap:14px}
 .rrcHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
@@ -1452,18 +1450,19 @@ window.__ModuleLoader__.load({
     }
 
     /**
-     * The main-panel view of the same control card. The sidebar row selects the
-     * `remote-control` panel; this component removes the modal overlay and close
-     * button, and lets the surrounding layout own the page.
+     * The sidebar row selects a main-panel entry only so the layout keeps the
+     * component mounted; the actual controls remain the same popup card.
+     * Closing it returns to the conversation instead of leaving a blank panel.
      * @param {object} props - locale seat and client context.
-     * @returns the embedded card.
+     * @returns the modal card.
      */
     function RemoteControlPanel({ t, ctx }) {
-      return h(
-        'div',
-        { className: 'rrcPanelPage' },
-        h(RemoteControlDialog, { open: true, embedded: true, t, ctx, onClose: () => {} }),
-      )
+      const [open, setOpen] = React.useState(true)
+      const close = () => {
+        setOpen(false)
+        ctx.get('layout')?.selectPanel?.(null)
+      }
+      return h(RemoteControlDialog, { open, onClose: close, t, ctx })
     }
 
     // ── Icons ────────────────────────────────────────────────────────────────
