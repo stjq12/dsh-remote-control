@@ -1,6 +1,6 @@
 {
   "name": "@stjq12/dsh-remote-control",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "在原生界面中，使用另一台电脑的DeepSeek Harness实例，控件和功能保留完整。",
   "type": "module",
   "main": "index.js",

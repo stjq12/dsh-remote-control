@@ -1450,19 +1450,29 @@ window.__ModuleLoader__.load({
     }
 
     /**
-     * The sidebar row selects a main-panel entry only so the layout keeps the
-     * component mounted; the actual controls remain the same popup card.
-     * Closing it returns to the conversation instead of leaving a blank panel.
-     * @param {object} props - locale seat and client context.
-     * @returns the modal card.
+     * The sidebar row must select a registered main panel, but this plugin's UI
+     * is a popup card, not a page. This launcher opens the card and immediately
+     * returns the center column to the conversation, so no blank panel remains.
+     * @param {object} props - client context.
+     * @returns null; the shell overlay host owns the card.
      */
-    function RemoteControlPanel({ t, ctx }) {
-      const [open, setOpen] = React.useState(true)
-      const close = () => {
-        setOpen(false)
+    function RemoteControlPanel({ ctx }) {
+      React.useEffect(() => {
+        window.dispatchEvent(new Event('remote-control/open-card'))
         ctx.get('layout')?.selectPanel?.(null)
-      }
-      return h(RemoteControlDialog, { open, onClose: close, t, ctx })
+      }, [])
+      return null
+    }
+
+    /** Shell-overlay host for the popup card; it stays mounted outside the panel. */
+    function RemoteCardHost({ t, ctx }) {
+      const [open, setOpen] = React.useState(false)
+      React.useEffect(() => {
+        const onOpen = () => setOpen(true)
+        window.addEventListener('remote-control/open-card', onOpen)
+        return () => window.removeEventListener('remote-control/open-card', onOpen)
+      }, [])
+      return h(RemoteControlDialog, { open, onClose: () => setOpen(false), t, ctx })
     }
 
     // ── Icons ────────────────────────────────────────────────────────────────
@@ -1814,6 +1824,11 @@ window.__ModuleLoader__.load({
             id: 'remote-control-fallback-notice',
             locale: NS,
           }, () => RemoteFallbackNotice()))
+          slots.inject('shell.overlay', () => slots.register({
+            name: 'shell.overlay',
+            id: 'remote-control-card',
+            locale: NS,
+          }, () => h(RemoteCardHost, { t, ctx })))
           const PANEL_ID = 'remote-control'
           slots.inject('main', () => slots.register({
             name: 'main',
