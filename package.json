@@ -1,7 +1,7 @@
 {
   "name": "@stjq12/dsh-remote-control",
   "version": "0.2.4",
-  "description": "Two-way remote control for DeepSeek Harness: expose one machine over an authenticated bridge, or drive another machine's DSH from this window.",
+  "description": "在原生界面中，使用另一台电脑的DeepSeek Harness实例，控件和功能保留完整。",
   "type": "module",
   "main": "index.js",
   "keywords": [
@@ -21,7 +21,8 @@
     "./icon": "./icon.svg",
     "./lib/bridge-host": "./lib/bridge-host.js",
     "./cordis.patch.yml": "./cordis.patch.yml",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*": "./locale/*"
   },
   "files": [
     "index.js",
@@ -41,7 +42,8 @@
     "assets",
     "LICENSE",
     "README.md",
-    "README.en.md"
+    "README.en.md",
+    "locale"
   ],
   "dsh": {
     "displayName": "Remote Control",
