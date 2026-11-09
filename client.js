@@ -269,6 +269,8 @@ window.__ModuleLoader__.load({
 .rrcTool:hover{background:var(--dsw-alias-interactive-bg-hover,rgba(127,127,127,.12))}
 .rrcTool svg{width:15px;height:15px}
 .rrcTool:disabled,.rrcTool[aria-disabled="true"]{opacity:.35;cursor:not-allowed}
+.rrcPanelPage{width:100%;height:100%;min-height:0;overflow:auto;padding:24px;box-sizing:border-box;display:flex;align-items:flex-start;justify-content:center}
+.rrcDialog.rrcDialogEmbedded{width:min(760px,100%);height:min(760px,calc(100vh - 80px));box-shadow:none;margin:0 auto}
 .rrcOverlay{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--dsw-alias-bg-mask-1,rgba(0,0,0,.32))}
 .rrcDialog{box-sizing:border-box;width:min(640px,100%);height:min(760px,calc(100vh - 32px));overflow:hidden;border-radius:var(--dsw-radius-panel,16px);border:1px solid var(--dsw-alias-border-l3,rgba(127,127,127,.24));background:var(--dsw-alias-bg-layer-2,Canvas);color:var(--dsw-alias-label-primary,CanvasText);box-shadow:var(--dsw-elevation-prominent,0 20px 60px rgba(0,0,0,.22));padding:20px;display:flex;flex-direction:column;gap:14px}
 .rrcHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
@@ -1323,7 +1325,7 @@ window.__ModuleLoader__.load({
      * @param {object} props - `{ open, onClose, t, ctx }`.
      * @returns the overlay element or null.
      */
-    function RemoteControlDialog({ open, onClose, t, ctx }) {
+    function RemoteControlDialog({ open, onClose, t, ctx, embedded = false }) {
       const [tab, setTab] = React.useState('local')
       const [footer, setFooter] = React.useState({ tone: 'plain', text: '' })
       const [view, setView] = React.useState('controls')
@@ -1376,9 +1378,9 @@ window.__ModuleLoader__.load({
       const body = h(
         'div',
         {
-          className: 'rrcDialog',
-          role: 'dialog',
-          'aria-modal': 'true',
+          className: embedded === true ? 'rrcDialog rrcDialogEmbedded' : 'rrcDialog',
+          role: embedded === true ? 'region' : 'dialog',
+          'aria-modal': embedded === true ? undefined : 'true',
           'aria-label': showingHelp ? t('help.title') : t('panel.title'),
           onClick: (event) => event.stopPropagation(),
         },
@@ -1405,7 +1407,7 @@ window.__ModuleLoader__.load({
               },
               showingHelp ? '←' : '?',
             ),
-            h('button', { type: 'button', className: 'rrcClose', title: t('actions.close'), 'aria-label': t('actions.close'), onClick: onClose }, '×'),
+            embedded === true ? null : h('button', { type: 'button', className: 'rrcClose', title: t('actions.close'), 'aria-label': t('actions.close'), onClick: onClose }, '×'),
           ),
         ),
         showingHelp
@@ -1442,10 +1444,26 @@ window.__ModuleLoader__.load({
               ),
             ),
       )
+      if (embedded === true) return body
       const overlay = h('div', { className: 'rrcOverlay', role: 'presentation', onClick: onClose }, body)
       if (typeof document === 'undefined' || document.body === undefined) return overlay
       const { createPortal } = require('react-dom')
       return createPortal(overlay, document.body)
+    }
+
+    /**
+     * The main-panel view of the same control card. The sidebar row selects the
+     * `remote-control` panel; this component removes the modal overlay and close
+     * button, and lets the surrounding layout own the page.
+     * @param {object} props - locale seat and client context.
+     * @returns the embedded card.
+     */
+    function RemoteControlPanel({ t, ctx }) {
+      return h(
+        'div',
+        { className: 'rrcPanelPage' },
+        h(RemoteControlDialog, { open: true, embedded: true, t, ctx, onClose: () => {} }),
+      )
     }
 
     // ── Icons ────────────────────────────────────────────────────────────────
@@ -1559,6 +1577,44 @@ window.__ModuleLoader__.load({
           pointerEvents: 'none',
         },
       })
+    }
+
+    /** Main-nav glyph with the same green activity dot as the old footer entry. */
+    function RemoteControlIcon({ size = 16 }) {
+      const [active, setActive] = React.useState(false)
+      React.useEffect(() => {
+        let live = true
+        let timer
+        const refresh = () => {
+          readState().then(
+            (value) => {
+              if (!live) return
+              setActive(value?.local?.enabled === true || value?.remote?.enabled === true)
+              if (timer !== undefined) clearTimeout(timer)
+              timer = undefined
+              const expiresAt = value?.local?.status?.expiresAt
+              if (typeof expiresAt === 'number' && Number.isFinite(expiresAt)) {
+                timer = setTimeout(refresh, Math.max(1000, expiresAt - Date.now() + 500))
+              }
+            },
+            () => {},
+          )
+        }
+        const onStateChanged = () => { if (live) refresh() }
+        refresh()
+        window.addEventListener('remote-control/state-changed', onStateChanged)
+        return () => {
+          live = false
+          if (timer !== undefined) clearTimeout(timer)
+          window.removeEventListener('remote-control/state-changed', onStateChanged)
+        }
+      }, [])
+      return h(
+        'span',
+        { style: { position: 'relative', display: 'flex', width: size, height: size } },
+        glyph(size),
+        glyphBadge({ size, on: active }),
+      )
     }
 
     /**
@@ -1759,15 +1815,20 @@ window.__ModuleLoader__.load({
             id: 'remote-control-fallback-notice',
             locale: NS,
           }, () => RemoteFallbackNotice()))
-          slots.inject('sidebar.footer.action', () => slots.register({
-            name: 'sidebar.footer.action',
-            id: 'remote-control',
-            // Rows in the footer stack top-down by ascending `order`. 81 is where
-            // the standalone bridge sat, so the merged entry keeps that position
-            // instead of jumping above the other footer actions.
-            order: 81,
+          const PANEL_ID = 'remote-control'
+          slots.inject('main', () => slots.register({
+            name: 'main',
+            key: PANEL_ID,
             locale: NS,
-          }, (props) => RemoteControlButton({ ...props, ctx })))
+          }, (props) => h(RemoteControlPanel, { ...props, t, ctx })))
+          slots.inject('sidebar.panellist', () => slots.register({
+            name: 'sidebar.panellist',
+            id: PANEL_ID,
+            // After Automation tasks (order 10), before More.
+            order: 20,
+            label: () => t('panel.title'),
+            locale: NS,
+          }, RemoteControlIcon))
           /**
            * The download glyph DSH ships, with an inline fallback so the control
            * still renders if the module is renamed by a build.
