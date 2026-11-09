@@ -272,6 +272,8 @@ window.__ModuleLoader__.load({
 .rrcOverlay{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--dsw-alias-bg-mask-1,rgba(0,0,0,.32))}
 .rrcDialog{box-sizing:border-box;width:min(640px,100%);height:min(760px,calc(100vh - 32px));overflow:hidden;border-radius:var(--dsw-radius-panel,16px);border:1px solid var(--dsw-alias-border-l3,rgba(127,127,127,.24));background:var(--dsw-alias-bg-layer-2,Canvas);color:var(--dsw-alias-label-primary,CanvasText);box-shadow:var(--dsw-elevation-prominent,0 20px 60px rgba(0,0,0,.22));padding:20px;display:flex;flex-direction:column;gap:14px}
 .rrcHeader{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}
+.rrcTitleGroup{display:flex;align-items:baseline;gap:8px;min-width:0}
+.rrcVersion{font-size:11px;line-height:1;color:var(--dsw-alias-label-tertiary,#8291a6);font-weight:500;letter-spacing:.02em;white-space:nowrap;transform:translateY(-1px)}
 .rrcHeaderActions{display:flex;align-items:center;gap:2px;flex:none}
 .rrcHeading{margin:0;font-size:16px;font-weight:600}
 .rrcClose{width:28px;height:28px;border:none;border-radius:var(--dsw-radius-md);background:0 0;color:var(--dsw-alias-label-secondary);cursor:pointer;font-size:16px;line-height:1}
@@ -1325,11 +1327,26 @@ window.__ModuleLoader__.load({
       const [tab, setTab] = React.useState('local')
       const [footer, setFooter] = React.useState({ tone: 'plain', text: '' })
       const [view, setView] = React.useState('controls')
+      const [pluginVersion, setPluginVersion] = React.useState('')
 
       // A closed card reopens on the controls, not on whichever help page was
       // last open in a previous visit.
       React.useEffect(() => {
         if (open === true) setView('controls')
+      }, [open])
+
+      // Read the package version from the Host's state payload. It is display-only;
+      // update checks remain in the DSH plugin manager.
+      React.useEffect(() => {
+        if (open !== true) return undefined
+        const controller = new AbortController()
+        readState(controller.signal).then(
+          (next) => {
+            if (!controller.signal.aborted && typeof next?.pluginVersion === 'string') setPluginVersion(next.pluginVersion)
+          },
+          () => {},
+        )
+        return () => controller.abort()
       }, [open])
 
       const copyOf = (section) => ({
@@ -1368,7 +1385,12 @@ window.__ModuleLoader__.load({
         h(
           'div',
           { className: 'rrcHeader' },
-          h('h2', { className: 'rrcHeading' }, showingHelp ? t('help.title') : t('panel.title')),
+          h(
+            'div',
+            { className: 'rrcTitleGroup' },
+            h('h2', { className: 'rrcHeading' }, showingHelp ? t('help.title') : t('panel.title')),
+            pluginVersion === '' ? null : h('span', { className: 'rrcVersion' }, `v${pluginVersion}`),
+          ),
           h(
             'div',
             { className: 'rrcHeaderActions' },

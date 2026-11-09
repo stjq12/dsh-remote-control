@@ -1,7 +1,17 @@
 import { randomBytes, randomUUID } from 'node:crypto'
+import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadState, saveState, sectionView } from './lib/state.js'
 import { normalizeFileRead, normalizeServiceDuration } from './lib/file-policy.js'
+
+const PACKAGE_VERSION = (() => {
+  try {
+    const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
+    return typeof pkg.version === 'string' ? pkg.version : ''
+  } catch {
+    return ''
+  }
+})()
 
 export const name = 'remote-control'
 
@@ -617,6 +627,7 @@ function installStateRoutes(ctx, {
     const transport = proxy?.snapshot?.() ?? { state: 'off', address: '' }
     return {
       version: state.version,
+      pluginVersion: PACKAGE_VERSION,
       // `status` is the live listener, not the record: a failed bind or a port
       // scan must be visible instead of the switch claiming a port nobody holds.
       local: { ...sectionView(state.local), status: bridge.status() },
